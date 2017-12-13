@@ -16,7 +16,10 @@ object CsvRowReader {
   }
 
   private def getRowsNoHeader(resourceName: String) = {
-    fromResource(resourceName).getLines().toStream.tail
+    val rows = fromResource(resourceName).getLines().toStream
+
+    if (rows.isEmpty) rows
+    else rows.tail
   }
 
   private def parseCrimeStat(row: Seq[String]) = {
